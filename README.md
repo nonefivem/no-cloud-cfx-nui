@@ -1,9 +1,9 @@
 <div align="center">
   <img src="https://assets.nonefivem.com/logo/dark-bg.png" alt="NoneM Logo" width="200" />
   
-  # @no-cloud/cfx-nui
+  # @nocloud/cfx-nui
   
-  **NoCloud SDK for CFX NUI (Browser/Web)**
+  **NoCloud SDK for CFX NUI (FiveM/RedM) - browser environment only**
   
   [![TypeScript](https://img.shields.io/badge/TypeScript-007ACC?style=for-the-badge&logo=typescript&logoColor=white)](https://www.typescriptlang.org/)
   [![Bun](https://img.shields.io/badge/Bun-000000?style=for-the-badge&logo=bun&logoColor=white)](https://bun.sh/)
@@ -30,7 +30,7 @@ NoCloud CFX NUI SDK provides a TypeScript client library for interacting with No
 This package is designed to be used in CFX NUI projects.
 
 ```bash
-bun add @no-cloud/cfx-nui
+bun add @nocloud/cfx-nui
 ```
 
 ## Usage
@@ -38,7 +38,7 @@ bun add @no-cloud/cfx-nui
 ### Importing
 
 ```typescript
-import { NoCloud } from "@no-cloud/cfx-nui";
+import { NoCloud } from "@nocloud/cfx-nui";
 ```
 
 ### Check Service Availability
