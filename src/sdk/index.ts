@@ -33,7 +33,9 @@ export class NoCloud {
    * @returns {Promise<boolean>} true if available
    */
   static async isAvailable(): Promise<boolean> {
-    const response = await fetch(`${NOCLOUD_BASE_URL}/ping`);
+    const response = await fetch(`${NOCLOUD_BASE_URL}/ping`, {
+      method: "POST"
+    });
 
     return response.ok;
   }
