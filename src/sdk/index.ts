@@ -11,7 +11,7 @@ import { Storage } from "./storage";
  *
  * async function uploadFile(file: File) {
  *   if (await NoCloud.isAvailable()) {
- *     const mediaUrl = await NoCloud.upload(file, { customMeta: 'value' });
+ *     const mediaUrl = await NoCloud.storage.upload(file, { customMeta: 'value' });
  *     console.log('File uploaded to:', mediaUrl);
  *   } else {
  *     console.error('NoCloud service is not available.');

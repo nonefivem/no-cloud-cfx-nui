@@ -58,7 +58,7 @@ async function uploadFile(file: File) {
     // Check if NoCloud is available
     if (await NoCloud.isAvailable()) {
       // Upload with optional metadata
-      const mediaUrl = await NoCloud.upload(file, {
+      const mediaUrl = await NoCloud.storage.upload(file, {
         customMeta: "value",
         userId: "12345"
       });
@@ -76,7 +76,7 @@ async function uploadFile(file: File) {
 ### Get Presigned URL
 
 ```typescript
-const { url, mediaUrl } = await NoCloud.getPresignedUrl(
+const { url, mediaUrl } = await NoCloud.storage.getPresignedUrl(
   "image/png", // Content type
   1024000, // File size in bytes
   {
@@ -95,7 +95,7 @@ const { url, mediaUrl } = await NoCloud.getPresignedUrl(
 ```typescript
 // Upload any Blob (e.g., canvas data)
 const blob = await fetch(canvasDataUrl).then((r) => r.blob());
-const mediaUrl = await NoCloud.upload(blob, {
+const mediaUrl = await NoCloud.storage.upload(blob, {
   type: "canvas-export",
   timestamp: Date.now()
 });
@@ -115,7 +115,7 @@ Checks if the NoCloud service is available by pinging the service endpoint.
 const available = await NoCloud.isAvailable();
 ```
 
-### `NoCloud.getPresignedUrl(contentType, size, metadata?)`
+### `NoCloud.storage.getPresignedUrl(contentType, size, metadata?)`
 
 Obtains a presigned URL for uploading a file.
 
@@ -133,10 +133,13 @@ Obtains a presigned URL for uploading a file.
 **Example:**
 
 ```typescript
-const { url, mediaUrl } = await NoCloud.getPresignedUrl("image/jpeg", 50000);
+const { url, mediaUrl } = await NoCloud.storage.getPresignedUrl(
+  "image/jpeg",
+  50000
+);
 ```
 
-### `NoCloud.upload(file, metadata?)`
+### `NoCloud.storage.upload(file, metadata?)`
 
 Uploads a file to NoCloud storage.
 
@@ -152,7 +155,7 @@ Uploads a file to NoCloud storage.
 ```typescript
 const fileInput = document.querySelector('input[type="file"]');
 const file = fileInput.files[0];
-const url = await NoCloud.upload(file, { category: "user-uploads" });
+const url = await NoCloud.storage.upload(file, { category: "user-uploads" });
 ```
 
 ## Error Handling
@@ -161,7 +164,7 @@ All methods throw errors when operations fail. Always wrap calls in try-catch bl
 
 ```typescript
 try {
-  const mediaUrl = await NoCloud.upload(file);
+  const mediaUrl = await NoCloud.storage.upload(file);
   console.log("Success:", mediaUrl);
 } catch (error) {
   console.error("Upload failed:", error);

@@ -48,3 +48,8 @@ export interface SignedUrlResponse {
    */
   mediaUrl: string;
 }
+
+/**
+ * Constructor type for a class.
+ */
+export type Ctor<T> = new (...args: any[]) => T;
