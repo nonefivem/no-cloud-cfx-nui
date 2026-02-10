@@ -1,3 +1,5 @@
+import type { FileMetadata } from "../types";
+
 /**
  * Delays execution for a specified number of milliseconds.
  * @param ms - The number of milliseconds to delay.
@@ -18,7 +20,7 @@ export function delay(ms: number): Promise<void> {
 export async function withRetry<T = any>(
   fn: () => Promise<T>,
   retries: number = 3,
-  delayMs: number = 1000,
+  delayMs: number = 1000
 ): Promise<T> {
   let lastError: unknown;
 
@@ -48,7 +50,7 @@ const BASE64_SIGNATURES: Record<string, string> = {
   JVBERi0: "application/pdf",
   UEsDB: "application/zip",
   PD94bWw: "application/xml",
-  PHN2Zw: "image/svg+xml",
+  PHN2Zw: "image/svg+xml"
 };
 
 /**
@@ -119,4 +121,21 @@ export function decodeBase64(base64: string): Uint8Array {
  */
 export function normalizeMimeType(mimeType: string): string {
   return mimeType.split(";")[0]?.trim() ?? mimeType;
+}
+
+/**
+ * Populates the attachments array in the FileMetadata object if it is not already populated.
+ * @param metadata - The FileMetadata object to populate.
+ * @returns The FileMetadata object with attachments populated if they were missing.
+ */
+export function populateMetadataAttachments(
+  metadata?: FileMetadata
+): FileMetadata {
+  if (!metadata) {
+    return { resource: GetCurrentResourceName() };
+  }
+
+  metadata.resource = metadata.resource || GetCurrentResourceName();
+
+  return metadata;
 }

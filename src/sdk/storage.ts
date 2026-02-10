@@ -5,9 +5,15 @@ import {
   NOCLOUD_BASE_URL,
   NoCloudAPIError,
   NoCloudResourceIsNotFound,
-  normalizeMimeType
+  normalizeMimeType,
+  populateMetadataAttachments
 } from "../lib";
-import type { FileBody, FileMetadata, SignedUrlResponse, UploadResponse } from "../types";
+import type {
+  FileBody,
+  FileMetadata,
+  SignedUrlResponse,
+  UploadResponse
+} from "../types";
 
 /**
  * Storage module for handling file storage operations.
@@ -27,17 +33,20 @@ export class Storage {
     size: number,
     metadata?: FileMetadata
   ): Promise<SignedUrlResponse> {
-    const response = await fetch(`${NOCLOUD_BASE_URL}/storage.requestSignedUrl`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify({
-        contentType,
-        size,
-        metadata
-      })
-    });
+    const response = await fetch(
+      `${NOCLOUD_BASE_URL}/storage.requestSignedUrl`,
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+          contentType,
+          size,
+          metadata: populateMetadataAttachments(metadata)
+        })
+      }
+    );
 
     if (!response.ok) {
       throw new NoCloudResourceIsNotFound();
@@ -106,7 +115,10 @@ export class Storage {
    * @returns {Promise<UploadResponse>} An object containing the upload ID and URL.
    * @throws {NoCloudAPIError} If the upload fails.
    */
-  async upload(body: FileBody, metadata?: FileMetadata): Promise<UploadResponse> {
+  async upload(
+    body: FileBody,
+    metadata?: FileMetadata
+  ): Promise<UploadResponse> {
     const { contentType, size, normalizedBody } = this.getBodyInfo(body);
     const { url, mediaUrl, mediaId } = await this.generateSignedUrl(
       contentType,
