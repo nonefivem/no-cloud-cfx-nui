@@ -131,11 +131,11 @@ export function normalizeMimeType(mimeType: string): string {
 export function populateMetadataAttachments(metadata?: FileMetadata): FileMetadata {
   if (!metadata) {
     //@ts-ignore
-    return { resource: window.GetCurrentResourceName() };
+    return { resource: window.GetParentResourceName() };
   }
 
   //@ts-ignore
-  metadata.resource = metadata.resource || window.GetCurrentResourceName();
+  metadata.resource = metadata.resource || window.GetParentResourceName();
 
   return metadata;
 }
