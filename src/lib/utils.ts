@@ -6,7 +6,7 @@ import type { FileMetadata } from "../types";
  * @returns A promise that resolves after the specified delay.
  */
 export function delay(ms: number): Promise<void> {
-  return new Promise((resolve) => setTimeout(resolve, ms));
+  return new Promise(resolve => setTimeout(resolve, ms));
 }
 
 /**
@@ -128,14 +128,14 @@ export function normalizeMimeType(mimeType: string): string {
  * @param metadata - The FileMetadata object to populate.
  * @returns The FileMetadata object with attachments populated if they were missing.
  */
-export function populateMetadataAttachments(
-  metadata?: FileMetadata
-): FileMetadata {
+export function populateMetadataAttachments(metadata?: FileMetadata): FileMetadata {
   if (!metadata) {
-    return { resource: GetCurrentResourceName() };
+    //@ts-ignore
+    return { resource: window.GetCurrentResourceName() };
   }
 
-  metadata.resource = metadata.resource || GetCurrentResourceName();
+  //@ts-ignore
+  metadata.resource = metadata.resource || window.GetCurrentResourceName();
 
   return metadata;
 }
