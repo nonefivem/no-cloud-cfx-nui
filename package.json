@@ -1,6 +1,6 @@
 {
   "name": "@nocloud/cfx-nui",
-  "version": "0.1.12",
+  "version": "0.1.13",
   "description": "NoCloud SDK for CFX NUI (FiveM/RedM) - browser environment only",
   "author": {
     "name": "sinanovicanes",
