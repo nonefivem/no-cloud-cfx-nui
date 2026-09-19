@@ -53,3 +53,31 @@ export interface SignedUrlResponse {
  * Constructor type for a class.
  */
 export type Ctor<T> = new (...args: any[]) => T;
+
+/**
+ * Any value that survives a trip through JSON.
+ */
+export type JsonValue =
+  | string
+  | number
+  | boolean
+  | null
+  | JsonValue[]
+  | { [key: string]: JsonValue };
+
+/**
+ * A feature flag's value. Flags hold booleans, strings, numbers or JSON.
+ */
+export type FlagValue = JsonValue;
+
+/**
+ * Feature flags keyed by flag key - every flag this client holds.
+ */
+export type FlagValues = Record<string, FlagValue>;
+
+/**
+ * A reply to a NUI callback, as the nocloud client script sends it.
+ */
+export type NuiResponse<T> =
+  | { ok: true; payload: T }
+  | { ok: false; message: string };

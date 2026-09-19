@@ -1,4 +1,5 @@
 import { NOCLOUD_BASE_URL } from "../lib";
+import { Flags } from "./flags";
 import { Storage } from "./storage";
 
 /**
@@ -17,15 +18,27 @@ import { Storage } from "./storage";
  *     console.error('NoCloud service is not available.');
  *   }
  * }
+ *
+ * async function hasNewHud() {
+ *   return NoCloud.flags.isFlagEnabled('new-hud');
+ * }
  * ```
  */
 export class NoCloud {
   private static _storage?: Storage;
+  private static _flags?: Flags;
   /**
    * Storage module for handling file storage operations.
    */
   static get storage(): Storage {
     return (this._storage ??= new Storage());
+  }
+
+  /**
+   * Feature flags module for reading the flags this client holds.
+   */
+  static get flags(): Flags {
+    return (this._flags ??= new Flags());
   }
 
   /**
